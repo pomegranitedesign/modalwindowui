@@ -3,30 +3,12 @@ import styled from 'styled-components';
 import { Transition, Spring, config } from 'react-spring';
 
 import SideMenu from './SideMenu/SideMenu';
+import SideNavContent from './SideNavContent/SideNavContent';
 import MenuButton from './MenuButton/MenuButton';
 import MenuButtonContainer from './MenuButtonContainer/MenuButtonContainer';
+import Toggle from './Toggle/Toggle';
 import { array } from '../Utilities/colors';
-import './App.css';
-
-// Toggle Component
-class Toggle extends Component {
-  state = {
-    on: false
-  }
-
-  handleToggle = () => {
-    this.setState(({on}) => ({on: !on}));
-  }
-
-  render() {
-    const { children } = this.props;
-
-    return children({
-      on: this.state.on,
-      toggle: this.handleToggle
-    });
-  }
-}
+import assignedClass from './App.css';
 
 const Content = (props) => {
   return (
@@ -50,7 +32,7 @@ const Content = (props) => {
           style={{
             opacity: styles.opacity,
           }}
-          className="Content"
+          className={assignedClass.Content}
         >
           {props.children}
         </div>
@@ -62,60 +44,16 @@ const Content = (props) => {
 const Container = (styles, props) => (
   <div 
     style={{transform: `scale(${styles.scale})`}}
-    className="Container"
+    className={assignedClass.Container}
   >
     {props.children}
   </div>
 );
 
-class SideNavContent extends Component {
-  state = {
-    sideNavContent: [
-      "Item One",
-      "Item Two",
-      "Item Three",
-      "Item Four",
-    ]
-  }
-
-  render() {
-    const { sideNavContent } = this.state;
-
-    return (
-      <Toggle>
-        {({on, toggle}) => (
-          <Fragment>
-            {on ? (
-              <Transition
-                from={{width: "0%"}}
-                enter={{width: "35%"}}
-                leave={{width: "0%"}}
-              >
-                {styles => (
-                  <SideMenu 
-                    width={styles.width} 
-                    toggle={toggle}
-                    sideNavContent={sideNavContent}
-                  />
-                )}
-              </Transition>
-            ) : (
-              <MenuButtonContainer>
-                <MenuButton toggle={toggle} />
-              </MenuButtonContainer>
-            )}
-          </Fragment>
-        )}
-      </Toggle>
-    );
-  }
-}
-
 class App extends Component {
   render() {
     return (
-      <div className="App">
-
+      <div className={assignedClass.App}>
         <Transition
           from={{
             scale: 0
@@ -137,9 +75,9 @@ class App extends Component {
           {styles => (
             <div
               style={{transform: `scale(${styles.scale})`}} 
-              className="Container"
+              className={assignedClass.Container}
             >
-              <SideNavContent />
+              <SideNavContent assignedClass={assignedClass} />
               <Content>
                 <h1>Your Content Will Be Here</h1>
                 <p>
@@ -155,7 +93,6 @@ class App extends Component {
             </div>
           )}
         </Transition>
-
       </div>
     );
   }

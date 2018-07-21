@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Trail, animated } from 'react-spring';
 import styled from 'styled-components';
 
 const ContentItem = styled.li`
@@ -7,20 +8,24 @@ const ContentItem = styled.li`
   display: block;
 `;
 
+const AnimItem = ContentItem.withComponent(animated.li);
+
 export default class SideMenu extends Component {
   render() {
-    const { width, toggle, sideNavContent } = this.props;
+    const { width, toggle, items, assignedClass } = this.props;
     return (
       <div 
-        className="SideMenu"
+        className={assignedClass}
         onClick={toggle}
         style={{width: width}}
       >
-        {sideNavContent.map(item => (
-          <ContentItem key={item}>
-            {item}
-          </ContentItem>
-        ))}
+        <Trail from={{opacity: 0}} to={{opacity: 1}} keys={items.map((items, key) => key)}>
+          {items.map(item => styles => (
+            <AnimItem style={{styles}}>
+              {item}
+            </AnimItem>
+          ))}
+        </Trail>
       </div>
     );
   }

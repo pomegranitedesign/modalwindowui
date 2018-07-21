@@ -1,7 +1,7 @@
 import React from 'react';
 
-const MenuButtonContainer = ({children}) => (
-  <div className="MenuButtonContainer">
+const MenuButtonContainer = ({children, assignedClass}) => (
+  <div className={assignedClass}>
     {children}
   </div>  
 );

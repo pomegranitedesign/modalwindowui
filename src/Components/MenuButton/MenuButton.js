@@ -1,9 +1,9 @@
 import React from 'react';
 
-const MenuButton = ({toggle}) => (
+const MenuButton = ({toggle, assignedClass}) => (
   <button
     onClick={toggle}
-    className="MenuOpenButton"
+    className={assignedClass}
   >
     Menu
   </button>
